@@ -40,7 +40,7 @@
                 BackgroundColor="White"
                 TextColor="Black"
                 FontSize="30"
-                Command="{Binding MoveToANewTab1Command}" />
+                Command="{Binding GoToBasicNavigationCommand}" />
 
     <CollectionView SelectionMode="Single" SelectedItem="{Binding Todo}" 
                     ItemsSource="{Binding ToDolist}"

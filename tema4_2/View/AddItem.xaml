@@ -25,7 +25,8 @@
             VerticalOptions="Center" 
             HorizontalOptions="Start" 
             Margin="20"/>
-            <Frame Grid.Row="1" BorderColor="Gray"
+            <Frame Grid.Row="1" 
+                   BorderColor="Gray"
                CornerRadius="0"
                Padding="15"
                Margin="5,7,1,8"

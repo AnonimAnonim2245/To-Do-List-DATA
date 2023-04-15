@@ -11,7 +11,7 @@ public static class MauiProgram
 		var builder = MauiApp.CreateBuilder();
 		builder
 			.UseMauiApp<App>()
-			.ConfigureFonts(fonts =>
+            .ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
@@ -25,8 +25,8 @@ public static class MauiProgram
         builder.Services.AddSingleton<View.EditItem>();
         builder.Services.AddSingleton<EditViewModel>();
 
-        builder.Services.AddSingleton<View.AddItem>();
-        builder.Services.AddSingleton<AddViewModel>();
+        builder.Services.AddTransient<View.AddItem>();
+        builder.Services.AddTransient<AddViewModel>();
 
 
 

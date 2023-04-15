@@ -21,14 +21,19 @@ namespace tema4_2.ViewModel
         [ObservableProperty]
         ToDoModel toSaveOnDB;
 
-        private readonly DbConnection _dbConnection;
+        private readonly Services.DbConnection _dbConnection;
 
-        public AddViewModel(DbConnection dbConnection)
+        /* public AddViewModel(Services.DbConnection dbConnection)
+         {
+             _dbConnection = dbConnection;
+             toDolist = new List<ToDoModel>();
+             toSaveOnDB = new ToDoModel();
+             GetInitalDataCommand.Execute(null);
+         }*/
+        public AddViewModel(ToDoModel todo)
         {
-            _dbConnection = dbConnection;
-            toDolist = new List<ToDoModel>();
-            toSaveOnDB = new ToDoModel();
-            GetInitalDataCommand.Execute(null);
+            ToSaveOnDB = todo;
+            Value = todo.Id;
         }
 
         [RelayCommand]
@@ -47,23 +52,7 @@ namespace tema4_2.ViewModel
         {
             await Shell.Current.GoToAsync(nameof(AddItem));
         }
-        partial void OnTodoChanged(ToDoModel value)
-        {
-            if (value == null) return;
-            GoToMoreInfo();
-        }
-        [RelayCommand]
-        private async void GoToMoreInfo()
-        {
-            var navigationParameter = new Dictionary<string, object>
-                {
-            { "Todo", Todo }
-                };
-
-            Todo = null;
-
-            await Shell.Current.GoToAsync(nameof(EditItem), navigationParameter);
-        }
+        
 
         [RelayCommand]
         private async Task SaveOnDb()

@@ -1,70 +1,51 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Maui.Views;
 using tema4_2.Models;
 using tema4_2.Services;
 using tema4_2.View;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace tema4_2.ViewModel
 {
     [QueryProperty("Text", "Text")]
 
-    public partial class EditViewModel : BaseViewModel, IQueryAttributable
+    public partial class EditViewModel : BaseViewModel
     {
-        [ObservableProperty]
-        List<ToDoModel> toDolist;
-
-        [ObservableProperty]
-        ToDoModel todo;
-        [ObservableProperty]
-        ToDoModel toSaveOnDB;
         
-        private readonly DbConnection _dbConnection;
+        public List<ToDoModel> ToDolist { get; set; }
 
-
-        public EditViewModel(DbConnection dbConnection)
+        public ICommand CloseCommand { get; set; }
+        public ObservableCollection<string> Items { get; set; }
+        //[ObservableProperty]
+        private ToDoModel _todo;
+        public ToDoModel Todo
         {
-            _dbConnection = dbConnection;
-            toDolist = new List<ToDoModel>();
-            toSaveOnDB = new ToDoModel();
-            //toDeleteOnDB = new ToDoModel();
-            todo = new ToDoModel();
-            GetInitalDataCommand.Execute(null);
-        }
-
-        [RelayCommand]
-        private async void GetInitalData()
-        {
-            ToDolist = await _dbConnection.GetItemsAsync();
-        }
-        [ObservableProperty]
-        string text;
-    
-
-     
-        public void ApplyQueryAttributes(IDictionary<string, object> query)
-        {
-            Todo = query["Todo"] as ToDoModel;
-        }
-
-
-        [RelayCommand]
-        private async Task DeleteOnDb(ToDoModel todo)
-        {
-            var modelToDelete = await _dbConnection.GetItemAsync(Todo.Id);
-            //if(modelToDelete != null)
+            get { return _todo; }
+            set
             {
-                
-                await _dbConnection.DeleteItemAsync(modelToDelete);
-                ToDolist = await _dbConnection.GetItemsAsync();
-                BackCommand.Execute(null);
-
+                if (_todo != value)
+                {
+                    _todo = value;
+                    OnPropertyChanged(nameof(Todo));
+                }
             }
-            
         }
         
-        [RelayCommand]
-        Task Back() => Shell.Current.GoToAsync("..");
+
+        public ToDoModel ToSaveOnDb { get; set; }
+
+        public string Text { get; set; }
+
+        //private readonly DbConnection _dbConnection;
+
+
+        public EditViewModel(ToDoModel todo)
+        {
+            Title = todo.Name;
+            Value = todo.Id;
+        }
 
     }
 

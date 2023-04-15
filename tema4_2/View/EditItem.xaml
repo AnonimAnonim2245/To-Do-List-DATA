@@ -6,8 +6,8 @@
              x:Class="tema4_2.View.EditItem"
                                         >
     <StackLayout Spacing="10" Padding="20">
-        <Grid RowDefinitions="80, Auto, *"
-          ColumnDefinitions=".50*,.50*"
+        <Grid RowDefinitions="*, Auto"
+          ColumnDefinitions="*,*"
           Padding="10"
           RowSpacing="5" 
           ColumnSpacing="5"
@@ -20,14 +20,12 @@
             <Button Text="Delete"
                 CornerRadius="0"
                 BackgroundColor="Gray"
-                Command="{Binding DeleteOnDbCommand}"
                 Grid.Row="3"
                 Grid.Column="0"
                 Margin="5,7,1,8"/>
             <Button Text="Cancel"
                 CornerRadius="0"
                 BackgroundColor="Gray"
-                Command="{Binding BackCommand}"
                 Grid.Row="3"
                 Grid.Column="1"
                 Margin="5,7,1,8"/>
